@@ -5,8 +5,6 @@ class Site extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-
-		$this->didDelete = FALSE;
 	}
 
 	public function index() {
@@ -26,34 +24,22 @@ class Site extends CI_Controller {
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-
         #fetch data from database
+
 		$value = array();
-		if ($this->didDelete) {
-			if($data = $this->model_site->read_record($config["per_page"])) {
-				$value['record'] = $data;
-			}
-		}
-		else {
-			if($data = $this->model_site->read_record($config["per_page"],$page)) {
-				$value['record'] = $data;
-			}
+		if($data = $this->model_site->read_record($config["per_page"],$page)) {
+			$value['record'] = $data;
 		}
 		
 		$value["links"] = $this->pagination->create_links();
+		$value["num_links"] = $config["num_links"];
 		$value["title"] = $page;
 
 		#what is in our data?
 		#echo 'what is value';
-		#echo '<pre>'; print_r($value); echo '</pre>';
-		#echo gettype($data[0]);
 
-		$didDelete = FALSE;
-
-		$this->load->view('templates/header',$value);
-		$this->load->view('pages/add',$value);
+		$this->load->view('templates/header');
 		$this->load->view('pages/home', $value);
-
 	}
 
 	function create() {
@@ -67,12 +53,16 @@ class Site extends CI_Controller {
 		else {
 			echo "Please make sure all fields are filled in";
 		}
-		$this->index();
+
+		$data['record'] = $data;
+
+		$this->load->view('templates/header');
+		$this->load->view('pages/add',$data);
 	}
 
 	function delete() {
 		$this->model_site->delete_record();
-		$this->didDelete = TRUE;
+		redirect('site/index');
 		$this->index();
 	}
 
@@ -81,6 +71,7 @@ class Site extends CI_Controller {
 		if($data = $this->model_site->edit_record()) {
 			$value['record'] = $data;
 		}
+		$this->load->view('templates/header');
 		$this->load->view('pages/edit',$value);
 	}
 

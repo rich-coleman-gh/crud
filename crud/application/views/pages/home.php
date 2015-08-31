@@ -20,16 +20,18 @@
 			<tr>
 				<td> <?php echo $value->id; ?> </td>
 				<td> <?php echo $value->username; ?> </td>
-				<td><?php echo $value->password; ?></td>
-				<td><?php echo $value->email; ?></td>
+				<td> <?php echo $value->password; ?></td>
+				<td> <?php echo $value->email; ?></td>
 				<td> <?php echo anchor('site/delete/' .$value->id, 'Delete') ?></td>
 				<td> <?php echo anchor('site/edit/' .$value->id, 'Edit') ?></td>
 			</tr>
 			<?php } ?>
 		</tbody>
 	</table	>
-   	<ul class="pagination">
-		<p><?php echo $links; ?></p>
-	</ul>	
+	<nav>
+   		<ul class="pagination">
+			<p><?php echo $links; ?></p>
+		</ul>		
+	</nav>
 </body>
 </html>

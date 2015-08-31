@@ -21,8 +21,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Add</a>
-      
+      <a class="navbar-brand" href="<?php echo base_url();?>">Home </a>
+
+      <button type="button" class="navbar-toggle" onclick="location.href='<?php echo base_url();?>site/create'">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?php echo base_url();?>index.php/site/create">Add</a>
     </div><!-- /.container -->
 </div><!-- /.navbar -->
   
